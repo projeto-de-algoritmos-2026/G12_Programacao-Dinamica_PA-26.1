@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador de DNAa</title>
+
+    <style>
+
+        body{
+            margin:0;
+            padding:30px;
+            background:#edf2f7;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        .container{
+            max-width:1100px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0px 0px 15px rgba(0,0,0,.15);
+        }
+
+        h1{
+            text-align:center;
+            color:#1565c0;
+        }
+
+        h2{
+            color:#0d47a1;
+            border-bottom:2px solid #ddd;
+            padding-bottom:8px;
+        }
+
+        p{
+            line-height:1.6;
+        }
+
+        label{
+            display:block;
+            margin-top:20px;
+            font-weight:bold;
+        }
+
+        textarea{
+            width:100%;
+            height:80px;
+            font-size:18px;
+            padding:10px;
+            margin-top:5px;
+            resize:none;
+            box-sizing:border-box;
+        }
+
+        button{
+            margin-top:25px;
+            width:100%;
+            padding:15px;
+            font-size:20px;
+            border:none;
+            border-radius:8px;
+            background:#1976d2;
+            color:white;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#0d47a1;
+        }
+
+        .resultado{
+            margin-top:40px;
+            display:none;
+        }
+
+        .caixa{
+            background:#f7f7f7;
+            padding:15px;
+            border-radius:10px;
+            margin-top:20px;
+        }
+
+        pre{
+            font-size:22px;
+            font-family:Consolas;
+            margin:5px;
+        }
+
+        table{
+            border-collapse:collapse;
+            margin-top:20px;
+            overflow:auto;
+        }
+
+        td{
+            border:1px solid #ccc;
+            padding:6px;
+            text-align:center;
+            min-width:35px;
+        }
+
+        .match{
+            color:green;
+            font-weight:bold;
+        }
+
+        .erro{
+            color:red;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Comparador de DNA</h1>
+
+<p>
+Compare duas sequências de DNA e encontre
+o melhor alinhamento entre elas.
+</p>
+
+<label>
+
+Primeira sequência
+
+</label>
+
+<textarea
+id="seq1"
+placeholder="Exemplo: ACGTAGCT"></textarea>
+
+<label>
+
+Segunda sequência
+
+</label>
+
+<textarea
+id="seq2"
+placeholder="Exemplo: ACTTAGCT"></textarea>
+
+<button onclick="compararDNA()">
+
+Comparar Sequências
+
+</button>
+
+<div class="resultado" id="resultado">
+
+<h2>Resultado</h2>
+
+<div class="caixa">
+
+<h3>Alinhamento</h3>
+
+<pre id="alinhamento1"></pre>
+
+<pre id="linhaComparacao"></pre>
+
+<pre id="alinhamento2"></pre>
+
+</div>
+
+<div class="caixa">
+
+<h3>Similaridade</h3>
+
+<h1 id="similaridade"></h1>
+
+</div>
+
+<div class="caixa">
+
+<h3>Matriz de Programação Dinâmica</h3>
+
+<div id="matriz"></div>
+
+</div>
+
+<div class="caixa">
+
+<h3>Requisitos do Algoritmo</h3>
+
+<ul>
+
+<li><b>Match:</b> custo 0</li>
+
+<li><b>Mismatch:</b> custo 4</li>
+
+<li><b>Gap:</b> custo 3</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function compararDNA(){     
+
+}
+
+</script>
+
+</body>
+
+</html>
