@@ -112,6 +112,31 @@
             font-weight:bold;
         }
 
+        pre {
+            margin: 4px 0;
+            font-family: monospace;
+            font-size: 18px;
+        }
+
+        .caixinha {
+            display: inline-block;
+            width: 24px;       
+            height: 24px;      
+            line-height: 24px; 
+            text-align: center;
+            border: 1px solid #ccc;
+            margin-right: 2px; 
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        #linhaComparacao .caixinha {
+            border: 1px solid transparent;
+            background: transparent;
+            color: #888;
+        }
     </style>
 
 </head>
@@ -207,9 +232,170 @@ Comparar Sequências
 
 <script>
 
-function compararDNA(){     
+    let M = [];
 
-}
+    function transformarEmCaixinhas(texto) {
+        return texto
+            .split("")
+            .map(letra => {
+                const caractere = letra === " " ? "&nbsp;" : letra;
+                return `<span class="caixinha">${caractere}</span>`;
+            })
+            .join("");
+    }
+
+    function criarTabelaResultado(seq2,seq1,m,n){
+        let html = "<table>";
+        html += "<tr>";
+        html += "<td></td>";
+        html += "<td>-</td>";
+
+        for(let c of seq2){
+            html += "<td><b>" + c + "</b></td>";
+        }
+
+        html += "</tr>";
+
+        for(let i = 0; i <= m; i++){
+            html += "<tr>";
+            if(i == 0)
+                html += "<td><b>-</b></td>";
+            else
+                html += "<td><b>" + seq1[i-1] + "</b></td>";
+
+            for(let j = 0; j <= n; j++){
+                html += "<td>" + M[i][j] + "</td>";
+            }
+
+            html += "</tr>";
+        }
+
+        html += "</table>";
+        return html;
+    }
+
+    function inicializacao(m, n, GAP){
+        for(let i=0;i<=m;i++){
+            M[i]=[];
+            for(let j=0;j<=n;j++){
+                M[i][j]=0;
+            }
+        }
+        for (let i = 0; i <= m; i++) {
+            M[i][0] = i * GAP;
+        }
+        for (let j = 0; j <= n; j++) {
+            M[0][j] = j * GAP;
+        }
+    }
+
+    function preencherGap(i, alinhamento1, alinhamento2){
+        while (i > 0) {
+        alinhamento1 = str[i - 1] + alinhamento1;
+        alinhamento2 = "-" + alinhamento2;
+        i--;
+        }
+        return [alinhamento1, alinhamento2, i];
+    }
+    function compararDNA(){
+        const match = (a,b) => a === b;
+        const eq = (a,b) => a === b;
+
+        let seq1 = document.getElementById("seq1").value.toUpperCase().trim();
+        let seq2 = document.getElementById("seq2").value.toUpperCase().trim();
+
+        if(seq1 == "" || seq2 == ""){
+            alert("Digite as duas sequências.");
+            return;
+        }
+        
+        const MATCH = 0;
+        const MISMATCH = 4;
+        const GAP = 3;
+
+        const m = seq1.length;
+        const n = seq2.length;
+
+        inicializacao(m,n, GAP);
+
+        for(let i=1;i<=m;i++){
+            for(let j=1;j<=n;j++){
+                let custo = MISMATCH;
+
+                if(match(seq1[i-1],seq2[j-1]))
+                    custo = MATCH;
+
+                let diagonal = M[i-1][j-1]+custo;
+                let cima = M[i-1][j]+GAP;
+                let esquerda = M[i][j-1]+GAP;
+
+                M[i][j]= Math.min(diagonal, cima, esquerda);
+            }
+        }
+
+        let alinhamento1 = "";
+        let alinhamento2 = "";
+        let i = m;
+        let j = n;
+
+        while(i > 0 && j > 0){
+            let custo = MISMATCH;
+
+            if(match(seq1[i-1],seq2[j-1]))
+                custo = MATCH;
+
+            if(eq(M[i][j], M[i-1][j-1] + custo)){
+                alinhamento1 = seq1[i-1] + alinhamento1;
+                alinhamento2 = seq2[j-1] + alinhamento2;
+                i--;
+                j--;
+            }
+
+            else if(eq(M[i][j], M[i-1][j] + GAP)){
+                alinhamento1 = seq1[i-1] + alinhamento1;
+                alinhamento2 = "-" + alinhamento2;
+                i--;
+            }
+
+            else{
+
+                alinhamento1 = "-" + alinhamento1;
+                alinhamento2 = seq2[j-1] + alinhamento2;
+                j--;
+            }
+        }
+
+        if( i > 0 )
+            [i, alinhamento1, alinhamento2] = preencherGap(i, alinhamento1, alinhamento2);
+        if( j > 0 )
+            [i, alinhamento2, alinhamento1] = preencherGap(i,alinhamento2,alinhamento1);
+
+        let linha = "";
+        let iguais = 0;
+
+        for(let k = 0; k < alinhamento1.length; k++){
+            if(alinhamento1[k] == alinhamento2[k]){
+                linha += "|";
+                iguais++;
+            }
+            else{
+                linha += ".";
+            }
+        }
+
+        let similaridade = (iguais / alinhamento1.length) * 100;
+
+        document.getElementById("resultado").style.display = "block";
+        document.getElementById("alinhamento1").innerHTML = transformarEmCaixinhas(alinhamento1);
+        document.getElementById("linhaComparacao").innerHTML = transformarEmCaixinhas(linha);
+        document.getElementById("alinhamento2").innerHTML = transformarEmCaixinhas(alinhamento2);
+        document.getElementById("similaridade").innerHTML = similaridade.toFixed(2) + "%";
+
+        let html = criarTabelaResultado(seq2,seq1,m,n);
+
+        document.getElementById("matriz").innerHTML = html;
+    }
+
 
 </script>
 
