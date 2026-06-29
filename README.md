@@ -19,7 +19,13 @@ Após o processamento, o programa reconstrói o melhor alinhamento percorrendo a
 
 ## Screenshots
 
+<p align="center"><strong>Imagem 1: Tela Inicial</strong></p>
 
+![Tela Inicial](assets/pagina_inicial.png)
+
+<p align="center"><strong>Imagem 2: Feedback do Sistema</strong></p>
+
+![Feedback do Sistema](assets/feedback.png)
 
 ## Instalação
 
