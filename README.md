@@ -38,9 +38,29 @@ Não é necessário compilação ou instalação de dependências.
 
 ### Funcionamento  
 
+Ao iniciar o sistema, será exibida uma interface chamada **Comparador de DNA**, cujo objetivo é comparar duas sequências de DNA e encontrar o melhor alinhamento entre elas.
 
-### Feedback do Sistema
+O usuário deve: 
 
+- Informar a primeira sequência de DNA
+- Informar a segunda sequência de DNA
+- Digitar as sequências utilizando as bases nitrogenadas (A, C, G e T)
+- Clicar no botão **Comparar Sequências** para iniciar a análise
+
+Após o processamento, o sistema exibe: 
+
+- O alinhamento entre as duas sequências 
+- Uma linha indicando as posições em que houve correspondência entre as bases
+- A porcentagem de similaridade entre as sequências
+- A matriz de programação dinâmica utilizada pelo algoritmo - Os custos utilizados para Match, Mismatch e Gap
+
+### Resultado da Comparação 
+
+- **100% de similaridade** → As duas sequências são idênticas no alinhamento obtido. 
+- **75% a 99%** → As sequências apresentam alta semelhança, com poucas diferenças. 
+- **40% a 74%** → As sequências possuem semelhança moderada, com diferenças em várias posições. 
+- **10% a 39%** → As sequências apresentam baixa similaridade. 
+- **0% a 9%** → As sequências são bastante diferentes entre si.
 
 ## Gravação 
 
