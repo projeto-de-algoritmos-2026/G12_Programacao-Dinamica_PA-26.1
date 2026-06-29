@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparador de DNAa</title>
+    <title>Comparador de DNA</title>
 
     <style>
 
@@ -289,14 +289,15 @@ Comparar Sequências
         }
     }
 
-    function preencherGap(i, alinhamento1, alinhamento2){
-        while (i > 0) {
-        alinhamento1 = str[i - 1] + alinhamento1;
-        alinhamento2 = "-" + alinhamento2;
-        i--;
-        }
-        return [alinhamento1, alinhamento2, i];
-    }
+   function preencherGap(indice, seq, alinhamento1, alinhamento2){
+       while (indice > 0) {
+           alinhamento1 = seq[indice - 1] + alinhamento1;
+           alinhamento2 = "-" + alinhamento2;
+           indice--;
+       }
+       return [alinhamento1, alinhamento2];
+   }
+
     function compararDNA(){
         const match = (a,b) => a === b;
         const eq = (a,b) => a === b;
@@ -365,10 +366,13 @@ Comparar Sequências
             }
         }
 
-        if( i > 0 )
-            [i, alinhamento1, alinhamento2] = preencherGap(i, alinhamento1, alinhamento2);
-        if( j > 0 )
-            [i, alinhamento2, alinhamento1] = preencherGap(i,alinhamento2,alinhamento1);
+        if (i > 0) {
+          [alinhamento1, alinhamento2] = preencherGap(i, seq1, alinhamento1, alinhamento2);
+        }
+
+        if (j > 0) {
+          [alinhamento2, alinhamento1] =  preencherGap(j, seq2, alinhamento2, alinhamento1);
+        }
 
         let linha = "";
         let iguais = 0;
