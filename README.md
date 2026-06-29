@@ -70,4 +70,4 @@ Após o processamento, o sistema exibe:
 
 ## Gravação 
 
-A gravação pode ser acessada através do link []().
+A gravação pode ser acessada através do link [https://youtu.be/RgxkvZFlqDE](https://youtu.be/RgxkvZFlqDE).
